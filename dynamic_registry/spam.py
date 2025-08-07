@@ -4,14 +4,8 @@ import typing as t
 
 class Registry(type):
     def __new__(mcs, name, bases, namespace, *, key_field='key'):
-        namespace['_registry'] = {}
         cls = super().__new__(mcs, name, bases, namespace)
         cls._key_field = key_field
-        cls._registry = namespace['_registry']  # Need this just for autocomplete.
-
-        # Clean-up the entries from the class root so they are presented only in the registry attribute.
-        for _ in [key for key, value in cls.__dict__.items() if isinstance(value, Entry)]:
-            delattr(cls, _)
         return cls
 
     @property
@@ -19,11 +13,13 @@ class Registry(type):
         return cls._key_field
 
     @property
-    def entries(cls) -> t.Dict[t.Hashable, 'Entry']:
-        return cls._registry
+    def registry(cls) -> t.Dict[t.Hashable, 'Entry']:
+        return {key: value for key, value in cls.__dict__.items() if isinstance(value, Entry)}
+        # return cls._registry
 
     def __repr__(cls):
-        return f'<Registry {cls.__name__} with entries: {", ".join(cls._registry)}>'
+        entries = ', '.join([str(_) for _ in cls.registry])
+        return f'<Registry {cls.__name__} with entries: {entries}>'
 
 
 class Entry:
@@ -32,13 +28,9 @@ class Entry:
 
     def __set_name__(self, owner: 'Registry', name):
         self._key = name
-        owner.entries[name] = self
 
     def __get__(self, instance: None, owner: 'Registry') -> t.Callable[..., t.Dict[t.Any, t.Any]]:
         return lambda **overrides_: {**self._defaults, **overrides_, owner.key_field: self._key}
-
-    def __repr__(self):
-        return f'<Registry entry {self._key} with defaults: {self._defaults}>'
 
 
 ##### TESTS ############################################################################################################
@@ -60,7 +52,7 @@ class RegistryB(metaclass=Registry, key_field='name'):
 print(RegistryB.ENTRY_B1())
 print(RegistryB.ENTRY_B2())
 
-# print(RegistryA)
-# print(RegistryA.ENTRY_A2)
-print(RegistryA.entries)
+print(RegistryA)
+print(RegistryA.ENTRY_A2)
+print(RegistryA.registry)
 print(RegistryA.key_field)
