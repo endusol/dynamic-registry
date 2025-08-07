@@ -26,8 +26,10 @@ class RegistryEntry:
     def __init__(self, **defaults):
         self._defaults = defaults
 
-    def __set_name__(self, owner: 'Registry', name):
+    def __set_name__(self, owner: '_RegistryMeta', name):
         self._key = name
+        owner.registry[name] = self
+        print()
 
     def __get__(self, instance: 'Registry', owner: '_RegistryMeta') -> t.Callable[..., t.Dict[t.Any, t.Any]]:
         return lambda **overrides_: {**self._defaults, **overrides_, instance.key_field: self._key}
@@ -37,16 +39,22 @@ class RegistryEntry:
 
 
 class _RegistryMeta(type):
+    def __new__(mcs, name, bases, namespace):
+        cls = super().__new__(mcs, name, bases, namespace)
+        cls._registry = {}
+        cls._key_field = None
+        return cls
+
     def __repr__(cls):
-        return f'<Registry {cls.__name__} with entries: {", ".join(cls.entries)}>'
+        return f'<Registry {cls.__name__} with entries: {", ".join(cls._registry)}>'
 
     @property
-    def entries(cls) -> t.Dict[str, 'RegistryEntry']:
+    def registry(self):
         """
-        Return all registry entries.
-        :return: all th entries as a dict.
+        The registry as a dict.
+        :return: all the entries as a dict.
         """
-        return {key: value for key, value in cls.__dict__.items() if isinstance(value, RegistryEntry)}
+        return self._registry
 
 
 class Registry(metaclass=_RegistryMeta):
@@ -63,3 +71,11 @@ class Registry(metaclass=_RegistryMeta):
         :return: name of the field.
         """
         return self._key_field
+
+    @property
+    def registry(self):
+        """
+        The registry as a dict.
+        :return: all the entries as a dict.
+        """
+        return self.__class__.registry
