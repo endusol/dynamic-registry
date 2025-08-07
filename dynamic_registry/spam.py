@@ -19,11 +19,17 @@ class Registry(type):
         return cls._key_field
 
     @property
-    def entries(cls) -> t.Dict[t.Hashable, 'Entry']:
+    def registry(cls) -> t.Dict[t.Hashable, 'Entry']:
         return cls._registry
 
     def __repr__(cls):
         return f'<Registry {cls.__name__} with entries: {", ".join(cls._registry)}>'
+
+    def __getattr__(self, item):
+        try:
+            return self.__dict__[item]
+        except KeyError:
+            return self._registry[item]
 
 
 class Entry:
@@ -32,10 +38,11 @@ class Entry:
 
     def __set_name__(self, owner: 'Registry', name):
         self._key = name
-        owner.entries[name] = self
+        self._owner = owner
+        owner.registry[name] = self
 
-    def __get__(self, instance: None, owner: 'Registry') -> t.Callable[..., t.Dict[t.Any, t.Any]]:
-        return lambda **overrides_: {**self._defaults, **overrides_, owner.key_field: self._key}
+    def __call__(self, **overrides) -> t.Dict[t.Hashable, t.Any]:
+        return {**self._defaults, **overrides, self._owner.key_field: self._key}
 
     def __repr__(self):
         return f'<Registry entry {self._key} with defaults: {self._defaults}>'
@@ -46,6 +53,7 @@ class Entry:
 class RegistryA(metaclass=Registry):
     ENTRY_A1 = Entry(a=100)
     ENTRY_A2 = Entry(a=200)
+    # key_field = Entry(a=None)
 
 
 print(RegistryA.ENTRY_A1())
@@ -60,7 +68,7 @@ class RegistryB(metaclass=Registry, key_field='name'):
 print(RegistryB.ENTRY_B1())
 print(RegistryB.ENTRY_B2())
 
-# print(RegistryA)
-# print(RegistryA.ENTRY_A2)
-print(RegistryA.entries)
+print(RegistryA)
+print(RegistryA.ENTRY_A2)
 print(RegistryA.key_field)
+print(RegistryA.registry)
