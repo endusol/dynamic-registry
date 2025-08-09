@@ -1,6 +1,6 @@
 [project]
 name = "dynamic_registry"
-version = "0.1.0"
+version = "1.0.0"
 description = "Registry with dynamic entries (can be enriched with data in runtime)"
 authors = [{name = "endusol",email = "pdima.endusol@gmail.com"}]
 readme = "README.md"
