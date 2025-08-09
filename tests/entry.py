@@ -61,7 +61,7 @@ def test__entry_key_field_is_rewritten_by_runtime_enrichment_data():
     assert TestRegistry.ENTRY(key=key)['key'] == key
 
 
-def test__defaults_are_rewritten_by_runtime_enrichment_data():
+def test__entry_defaults_are_rewritten_by_runtime_enrichment_data():
     class TestRegistry(metaclass=Registry):
         """Test registry."""
         ENTRY = Entry(a=100, b=200)

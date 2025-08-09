@@ -20,6 +20,14 @@ def test__registry_key_field_reset_works_correctly():
     assert TestRegistry.key_field == key_field
 
 
+def test__registry_key_field_disabling_works_correctly():
+    class TestRegistry(metaclass=Registry, key_field=None):
+        """Test registry."""
+        ENTRY = Entry()
+
+    assert TestRegistry.ENTRY() == {}
+
+
 def test__registry_entries_returns_full_and_correct_dict_of_entries():
     entries_num = 3
     entries = [Entry() for _ in range(entries_num)]

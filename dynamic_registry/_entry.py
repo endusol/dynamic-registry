@@ -22,7 +22,9 @@ class Entry:
         self._owner: Registry = owner
 
     def __call__(self, **overrides) -> t.Dict[t.Hashable, t.Any]:
-        return {self._owner.key_field: self._key, **self._defaults, **overrides}
+        result = {} if self._owner.key_field is None else {self._owner.key_field: self._key}
+        result.update({**self._defaults, **overrides})
+        return result
 
     def __repr__(self):
         return f'<Entry `{self._key}` with defaults: {self._defaults}>'
