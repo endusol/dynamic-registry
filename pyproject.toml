@@ -1,7 +1,7 @@
 [project]
 name = "dynamic_registry"
 version = "0.1.0"
-description = ""  # TODO
+description = "Registry with dynamic entries (can be enriched with data in runtime)"
 authors = [{name = "endusol",email = "pdima.endusol@gmail.com"}]
 readme = "README.md"
 license = "MIT"

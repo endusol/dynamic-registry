@@ -41,7 +41,7 @@ jobs:
       with:
         files: ./coverage.xml
         flags: unittests
-#        name: codecov-flexfail TODO
+        name: codecov-dynamic-registry
 
     - name: Publish to PyPI
       if: success()
