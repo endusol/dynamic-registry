@@ -1,20 +1,20 @@
 [badge--license]: https://img.shields.io/badge/©MIT-d19a04.svg?style=for-the-badge
-[href--license]: https://github.com/endusol/dynamic_registry/blob/main/LICENSE
+[href--license]: https://github.com/endusol/dynamic-registry/blob/main/LICENSE
 
 [badge--python]: https://img.shields.io/badge/Python%203.9%2B-3060bb?logo=python&style=for-the-badge&logoColor=white
 [href--python]: https://www.python.org/
 
-[badge--pypi]: https://img.shields.io/badge/DYNAMICREGISTRY-352239.svg?logo=pypi&style=for-the-badge&logoColor=white
-[href--pypi]: https://pypi.org/project/dynamicregistry/
+[badge--pypi]: https://img.shields.io/badge/DYNAMIC_REGISTRY-352239.svg?logo=pypi&style=for-the-badge&logoColor=white
+[href--pypi]: https://pypi.org/project/dynamic-registry/
 
 [badge--safety]: https://img.shields.io/badge/🛡%20Safety-131313?style=for-the-badge
-[href--safety]: https://data.safetycli.com/packages/pypi/dynamicregistry/
+[href--safety]: https://data.safetycli.com/packages/pypi/dynamic_registry/
 
-[badge--codecov]: https://img.shields.io/codecov/c/github/endusol/dynamic_registry/main?logo=codecov&style=for-the-badge&logoColor=white
-[href--codecov]: https://app.codecov.io/github/endusol/dynamic_registry/tree/main
+[badge--codecov]: https://img.shields.io/codecov/c/github/endusol/dynamic-registry/main?logo=codecov&style=for-the-badge&logoColor=white
+[href--codecov]: https://app.codecov.io/github/endusol/dynamic-registry/tree/main
 
-[badge--gh-actions]: https://img.shields.io/badge/dynamic/json?&style=for-the-badge&logo=githubactions&logoColor=white&label=Publish%20to%20PyPi&color=131313&url=https%3A%2F%2Fapi.github.com%2Frepos%2Fendusol%2Fdynamic_registry%2Factions%2Fruns&query=%24.workflow_runs%5B0%5D.conclusion
-[href--gh-actions]: https://github.com/endusol/dynamic_registry/actions/workflows/publish-pypi.yaml
+[badge--gh-actions]: https://img.shields.io/badge/dynamic/json?&style=for-the-badge&logo=githubactions&logoColor=white&label=Publish%20to%20PyPi&color=131313&url=https%3A%2F%2Fapi.github.com%2Frepos%2Fendusol%2Fdynamic-registry%2Factions%2Fruns&query=%24.workflow_runs%5B0%5D.conclusion
+[href--gh-actions]: https://github.com/endusol/dynamic-registry/actions/workflows/publish-pypi.yaml
 
 [badge--gh-sponsors]: https://img.shields.io/badge/sponsor-30363D?style=for-the-badge&logo=GitHub-Sponsors&logoColor=#ea4aaa
 [href--gh-sponsors]: https://github.com/endusol/dynamic_registry/
