@@ -3,7 +3,8 @@ Registry entry.
 """
 import typing as t
 if t.TYPE_CHECKING:
-    from ._registry import Registry  # type: ignore[unused-import] --> Ignore as it's required for annotations.
+    # Ignore warning/test-coverage as it's required for type-hinting only.
+    from ._registry import Registry  # type: ignore[unused-import] # pragma: no cover
 
 
 class Entry:
